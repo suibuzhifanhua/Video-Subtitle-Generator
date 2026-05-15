@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Distribution / packaging (exe already in repo)
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Logs
+*.log
+_translate_stderr.log
+
+# Test outputs
+test_*.srt
+test_output*.srt
+outputs/
+
+# Uploaded files
+uploads/
+
+# Whisper models (downloaded at runtime)
+whisper_models/
+
+# Virtual environments
+venv/
+env/
+.venv/
