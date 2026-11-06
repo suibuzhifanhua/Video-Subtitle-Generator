@@ -5,9 +5,9 @@ import os
 import sys
 
 # 设置环境变量
-os.environ["USERNAME"] = "lfish"
-os.environ["HOME"] = "C:/Users/lfish"
-os.environ["USERPROFILE"] = "C:/Users/lfish"
+os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
+os.environ.setdefault("HOME", os.path.expanduser("~"))
+os.environ.setdefault("USERPROFILE", os.path.expanduser("~"))
 os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 os.environ["PYTORCH_JIT"] = "0"
 os.environ["TORCHINDUCTOR_DISABLE"] = "1"

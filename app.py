@@ -13,7 +13,7 @@ if not os.environ.get("USERNAME"):
         import getpass
         os.environ["USERNAME"] = getpass.getuser()
     except Exception:
-        os.environ["USERNAME"] = "lfish"
+        os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
 
 import json
 import uuid
@@ -353,13 +353,13 @@ def _find_system_python():
     # 系统 Python 3.14（优先，比 managed 3.13 更完整）
     for ver in ["314", "313"]:
         for candidate in [
-            Path(f"C:/Users/lfish/AppData/Local/Programs/Python/Python{ver}/python.exe"),
+            Path(os.path.expanduser(f"~/AppData/Local/Programs/Python/Python{ver}/python.exe")),
             Path(f"C:/Python{ver}/python.exe"),
         ]:
             if candidate.exists():
                 return str(candidate)
     # Managed Python 3.13.12（备用）
-    managed_py = Path("C:/Users/lfish/.workbuddy/binaries/python/versions/3.13.12/python.exe")
+    managed_py = Path(os.path.expanduser("~/.workbuddy/binaries/python/versions/3.13.12/python.exe"))
     if managed_py.exists():
         return str(managed_py)
     # PATH 中的 python
@@ -377,7 +377,7 @@ def _init_marian_translator():
             import getpass
             os.environ["USERNAME"] = getpass.getuser()
         except Exception:
-            os.environ["USERNAME"] = "lfish"
+            os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
 
     # 禁用 torch dynamo 编译
     os.environ["TORCHDUMP"] = "0"
@@ -462,7 +462,7 @@ def do_translate(task_id, target_lang="zh"):
                     "TORCHINDUCTOR_DISABLE": "1",
                     "HF_HUB_DISABLE_SYMLINKS_WARNING": "1",
                     "HOME": os.environ.get("HOME") or os.path.expanduser("~"),
-                    "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "lfish",
+                    "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "user",
                 }
                 if "PATH" in clean_env:
                     clean_env["PATH"] = ";".join(
@@ -963,7 +963,7 @@ def translate_text():
         "TORCHINDUCTOR_DISABLE": "1",
         "HF_HUB_DISABLE_SYMLINKS_WARNING": "1",
         "HOME": os.environ.get("HOME") or os.path.expanduser("~"),
-        "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "lfish",
+        "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "user",
     }
     exe_dir = str(Path(sys.executable).parent.resolve())
     if "PATH" in clean_env:
@@ -1061,7 +1061,7 @@ def _run_subtitle_translation(task_id, input_path, ext):
             "TORCHINDUCTOR_DISABLE": "1",
             "HF_HUB_DISABLE_SYMLINKS_WARNING": "1",
             "HOME": os.environ.get("HOME") or os.path.expanduser("~"),
-            "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "lfish",
+            "USERNAME": os.environ.get("USERNAME") or os.environ.get("USER") or "user",
         }
         if "PATH" in clean_env:
             clean_env["PATH"] = ";".join(

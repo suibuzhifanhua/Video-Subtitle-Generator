@@ -13,7 +13,7 @@ os = _os
 del _sys, _os
 
 # 设置环境变量
-os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "lfish")
+os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
 _user_home = os.environ.get("HOME") or os.path.expanduser("~")
 os.environ.setdefault("HOME", _user_home)
 os.environ.setdefault("USERPROFILE", _user_home)

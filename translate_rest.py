@@ -4,9 +4,9 @@
 import os
 import sys
 
-os.environ["USERNAME"] = "lfish"
-os.environ["HOME"] = "C:/Users/lfish"
-os.environ["USERPROFILE"] = "C:/Users/lfish"
+os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
+os.environ.setdefault("HOME", os.path.expanduser("~"))
+os.environ.setdefault("USERPROFILE", os.path.expanduser("~"))
 os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 os.environ["PYTORCH_JIT"] = "0"
 os.environ["TORCHINDUCTOR_DISABLE"] = "1"
@@ -23,7 +23,7 @@ model = M2M100ForConditionalGeneration.from_pretrained(local_dir)
 model.eval()
 print("模型加载成功", flush=True)
 
-with open("C:/Users/lfish/Downloads/JUQ-553.restored (2).srt", "r", encoding="utf-8") as f:
+with open(os.path.join(os.path.expanduser("~"), "Downloads", "JUQ-553.restored (2).srt"), "r", encoding="utf-8") as f:
     content = f.read()
 
 blocks = content.strip().split("\n\n")
@@ -59,6 +59,6 @@ for i, block in enumerate(blocks[START:], START):
     if (i - START + 1) % 100 == 0:
         print(f"进度: {i - START + 1}/{len(blocks) - START}", flush=True)
 
-with open("C:/Users/lfish/Downloads/test_rest.srt", "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.expanduser("~"), "Downloads", "test_rest.srt"), "w", encoding="utf-8") as f:
     f.write("\n\n".join(out_blocks) + "\n")
 print(f"完成！{len(out_blocks) - errors}/{len(blocks) - START} 条", flush=True)

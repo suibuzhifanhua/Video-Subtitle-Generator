@@ -4,9 +4,9 @@
 import os
 import sys
 
-os.environ["USERNAME"] = "lfish"
-os.environ["HOME"] = "C:/Users/lfish"
-os.environ["USERPROFILE"] = "C:/Users/lfish"
+os.environ.setdefault("USERNAME", os.environ.get("USERNAME") or os.environ.get("USER") or "user")
+os.environ.setdefault("HOME", os.path.expanduser("~"))
+os.environ.setdefault("USERPROFILE", os.path.expanduser("~"))
 os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 os.environ["PYTORCH_JIT"] = "0"
 os.environ["TORCHINDUCTOR_DISABLE"] = "1"
@@ -22,8 +22,8 @@ model = M2M100ForConditionalGeneration.from_pretrained(local_dir)
 print("模型加载成功")
 
 # 读取字幕
-input_file = "C:/Users/lfish/Downloads/JUQ-553.restored (2).srt"
-output_file = "C:/Users/lfish/Downloads/test_translated.srt"
+input_file = os.path.join(os.path.expanduser("~"), "Downloads", "JUQ-553.restored (2).srt")
+output_file = os.path.join(os.path.expanduser("~"), "Downloads", "test_translated.srt")
 
 with open(input_file, "r", encoding="utf-8") as f:
     content = f.read()
